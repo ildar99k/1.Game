@@ -6,14 +6,15 @@ package ru.ildarka.pages;/*
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Ildar
  */
 class Records extends javax.swing.JFrame {
@@ -23,20 +24,31 @@ class Records extends javax.swing.JFrame {
      */
     public Records() {
         initComponents();
-        setBounds(300,60,640,640);
+        setBounds(300, 60, 640, 640);
         setResizable(false);
         try {
-            FileReader fr=new FileReader(String.valueOf(getClass().getResource("/Record.txt")));
+            File file = new File(getClass().getResource("/Record.txt").toURI());
+            FileReader fr = new FileReader(file);
             Scanner sc = new Scanner(fr);
-            jLabel2.setText(sc.nextLine());
-            jLabel3.setText(sc.nextLine());
-            jLabel4.setText(sc.nextLine());
-            jLabel5.setText(sc.nextLine());
-            jLabel6.setText(sc.nextLine());
-        } catch (FileNotFoundException ex) {
+            if (sc.hasNext()) {
+                jLabel2.setText(sc.nextLine());
+            }
+            if (sc.hasNext()) {
+                jLabel3.setText(sc.nextLine());
+            }
+            if (sc.hasNext()) {
+                jLabel4.setText(sc.nextLine());
+            }
+            if (sc.hasNext()) {
+                jLabel5.setText(sc.nextLine());
+            }
+            if (sc.hasNext()) {
+                jLabel6.setText(sc.nextLine());
+            }
+        } catch (FileNotFoundException | URISyntaxException ex) {
             Logger.getLogger(Records.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -165,7 +177,7 @@ class Records extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        
+
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
@@ -176,10 +188,10 @@ class Records extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                   
-              
+
+
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
@@ -190,7 +202,7 @@ class Records extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new Records().setVisible(true);
             }
         });

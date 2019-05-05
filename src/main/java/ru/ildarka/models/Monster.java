@@ -31,12 +31,10 @@ public class Monster {
     }
 
     public int getMonstersSizeX() {
-        int monstersSizeX = 30;
-        return monstersSizeX;
+        return 30;
     }
 
     public int getMonstersSizeY() {
-        int monstersSizeY = 30;
-        return monstersSizeY;
+        return 30;
     }
 }

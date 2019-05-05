@@ -7,7 +7,6 @@ package ru.ildarka;/*
 import ru.ildarka.pages.Menu;
 
 /**
- *
  * @author Ildar
  */
 class IgraCosmos {
@@ -16,8 +15,8 @@ class IgraCosmos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Menu menu =new Menu();
+        Menu menu = new Menu();
         menu.setVisible(true);
     }
-    
+
 }
