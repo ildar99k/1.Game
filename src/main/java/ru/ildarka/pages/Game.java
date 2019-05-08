@@ -1,11 +1,13 @@
 package ru.ildarka.pages;
 
 import ru.ildarka.models.Bullet;
+import ru.ildarka.models.DataRepository;
 import ru.ildarka.models.Monster;
 
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.zip.DataFormatException;
 
 /**
  * @author Ildar
@@ -14,7 +16,6 @@ class Game extends BaseGameField {
     public Game(final String name)  //запуск конструктора
     {
         super();
-        loadRes();
         final Timer timer = new Timer(); //создаем объект класса таймер, чтобы повторять действия через промежуток времени
         TimerTask timerTask = new TimerTask() // объект хранит в себя децствия для таймера 
         {
@@ -42,14 +43,14 @@ class Game extends BaseGameField {
 
     public void paint(Graphics gr) {
         Graphics2D g2 = (Graphics2D) gr;
-        gr.clearRect(x, y, 40, 60);
-        gr.drawImage(im, 0, 0, 640, 640, rootPane);
-        gr.drawImage(im_spaceship, x, y, 40, 60, rootPane);
+        gr.clearRect(hero.getX(), hero.getY(), 40, 60);
+        gr.drawImage(DataRepository.getDataRepository().getIm(), 0, 0, 640, 640, rootPane);
+        gr.drawImage(hero.getImage(), hero.getX(), hero.getY(), 40, 60, rootPane);
         gr.setColor(Color.ORANGE);
         for (Monster monster : monsters) //рисуем всех монстров
         {
             gr.clearRect(monster.getX(), monster.getY(), monster.getMonstersSizeX(), monster.getMonstersSizeY());
-            gr.drawImage(im_ufo, monster.getX(), monster.getY(), 30, 30, rootPane);
+            gr.drawImage(monster.getImage(), monster.getX(), monster.getY(), 30, 30, rootPane);
         }
         gr.setColor(Color.red);
         Font currentFont = gr.getFont();
@@ -57,7 +58,7 @@ class Game extends BaseGameField {
         gr.setFont(newFont);
         gr.drawString("Score: " + score, 310, 70); //рисуем табло с жизнями
         for (int i = 0; i < life; i++) {
-            gr.drawImage(heart, 320 + 20 * i, 90, 20, 20, rootPane);
+            gr.drawImage(DataRepository.getDataRepository().getHeart(), 320 + 20 * i, 90, 20, 20, rootPane);
         }
         g2.setStroke(new BasicStroke(2));
         for (Bullet bullet : bullets) {

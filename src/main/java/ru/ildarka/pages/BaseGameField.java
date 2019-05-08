@@ -1,6 +1,7 @@
 package ru.ildarka.pages;
 
 import ru.ildarka.models.Bullet;
+import ru.ildarka.models.Hero;
 import ru.ildarka.models.Monster;
 
 import javax.swing.*;
@@ -12,12 +13,7 @@ import java.util.Iterator;
 
 abstract class BaseGameField extends JFrame implements KeyListener {
     private final ArrayList<Bullet> deletedBullets = new ArrayList<>();
-    Image im;
-    Image im_spaceship;
-    Image im_ufo;
-    Image heart;
-    static int x = 300;
-    static final int y = 520;
+    protected Hero hero=new Hero();
     static int life = 3;
     private static final int dx = 7;
     private static int dy = 2;
@@ -53,11 +49,11 @@ abstract class BaseGameField extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) /*при нажатии клавиш влево и вправо перемещаем
         персонажа влево и вправо*/ {
-        if ((x <= 590) && (e.getKeyCode() == KeyEvent.VK_RIGHT)) {
-            x = x + dx;
+        if ((hero.getX() <= 590) && (e.getKeyCode() == KeyEvent.VK_RIGHT)) {
+            hero.setX(hero.getX() + dx);
         }
-        if ((x >= 10) && (e.getKeyCode() == KeyEvent.VK_LEFT)) {
-            x = x - dx;
+        if ((hero.getX() >= 10) && (e.getKeyCode() == KeyEvent.VK_LEFT)) {
+            hero.setX(hero.getX()-dx);
         }
     }
 
@@ -65,17 +61,11 @@ abstract class BaseGameField extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent e) //запуск пули при нажатии на пробел
     {
         if (e.getKeyCode() == 32) {
-            bullets.add(new Bullet(x + 20, 520));
+            bullets.add(new Bullet(hero.getX()+20, hero.getY()));
         }
     }
 
-    void loadRes() {
-        im = new ImageIcon(getClass().getResource("/space.jpg")).getImage();
-        im_spaceship = new ImageIcon(getClass().getResource("/ship.png")).getImage();
-        im_ufo = new ImageIcon(getClass().getResource("/ufo.png")).getImage();
-        heart = new ImageIcon(getClass().getResource("/heart.png")).getImage();
 
-    }
     void checkForExitOfBounds(){
         for (Monster monster : monsters) {
             if (monster.getY() > 640) /*если монстр проходит через нижнюю линию, то он перемещается в начало
